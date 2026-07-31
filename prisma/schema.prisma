@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Discipline {
+  STA // Static apnea - time
+  DYN // Dynamic with fins - distance
+  DNF // Dynamic no fins - distance
+  CWT // Constant weight - depth
+  FIM // Free immersion - depth
+  CNF // Constant weight no fins - depth
+}
+
+enum TableType {
+  CO2
+  O2
+}
+
+enum LocationType {
+  POOL
+  OCEAN
+  LAKE
+  DRY
+}
+
+// For STA only: whether the static was done dry (on land) or wet (in water).
+enum StaEnvironment {
+  DRY
+  WET
+}
+
+model User {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  sessions     TrainingSession[]
+  templates    TableTemplate[]
+  tableRuns    TableRun[]
+}
+
+model TrainingSession {
+  id          String     @id @default(cuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  discipline  Discipline
+  date        DateTime   @default(now())
+
+  // Result is stored discipline-agnostically; interpret by discipline:
+  // STA -> resultSeconds; DYN/DNF -> resultMeters (distance); CWT/FIM/CNF -> resultMeters (depth)
+  resultSeconds Int?     // for STA
+  resultMeters  Float?   // for DYN/DNF/CWT/FIM/CNF
+
+  location      String?         // free-text name of the pool/ocean/lake
+  locationType  LocationType?   // Pool / Ocean / Lake
+  staEnvironment StaEnvironment? // STA only: dry vs wet
+  buddy       String?
+  waterTempC  Float?
+  eqNotes     String?
+  feltNotes   String?
+  feltRating  Int?       // 1-5 subjective rating
+
+  createdAt   DateTime   @default(now())
+
+  @@index([userId, discipline, date])
+}
+
+model TableTemplate {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  type      TableType
+  // Ordered rounds; each round = a hold and the rest/breathe before next hold.
+  rounds    Json       // [{ holdSec: number, breatheSec: number }]
+  basedOnPBSeconds Int? // the static PB used to generate this table, if any
+  isShared  Boolean    @default(false)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  runs      TableRun[]
+
+  @@index([userId])
+}
+
+model TableRun {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  templateId  String?
+  template    TableTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+
+  type        TableType
+  rounds      Json           // snapshot of rounds actually run
+  completedRounds Int        @default(0)
+  maxHoldSec  Int?           // longest hold in this run (for CO2 tolerance trend)
+  notes       String?
+
+  startedAt   DateTime       @default(now())
+  finishedAt  DateTime?
+
+  @@index([userId, startedAt])
+}

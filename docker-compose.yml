@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: freedive
+      POSTGRES_PASSWORD: freedive
+      POSTGRES_DB: freedive
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      # Keep Postgres available to local development tools without exposing it
+      # to every device on the LAN.
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U freedive -d freedive"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://freedive:freedive@db:5432/freedive?schema=public"
+      # Required — set in a local .env file (see .env.example). No insecure
+      # default: Compose errors out if AUTH_SECRET is unset rather than running
+      # with a guessable signing key.
+      AUTH_SECRET: "${AUTH_SECRET:?AUTH_SECRET must be set — generate one with: openssl rand -base64 32}"
+      # Compose exposes the app directly over HTTP, including to other devices
+      # on the LAN. Secure cookies are rejected over HTTP. Set this to "true"
+      # when serving the app through an HTTPS reverse proxy.
+      AUTH_COOKIE_SECURE: "${AUTH_COOKIE_SECURE:-false}"
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

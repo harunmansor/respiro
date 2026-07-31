@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b3a5e"/>
+      <stop offset="1" stop-color="#04111f"/>
+    </linearGradient>
+  </defs>
+  <!-- Full-bleed background so maskable crop never shows transparency -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- Wave mark kept within the central ~70% safe zone for maskable icons -->
+  <g fill="none" stroke="#56b8e0" stroke-width="26" stroke-linecap="round">
+    <path d="M116 214c30 0 30 28 60 28s30-28 60-28 30 28 60 28 30-28 60-28"/>
+    <path d="M116 298c30 0 30 28 60 28s30-28 60-28 30 28 60 28 30-28 60-28"/>
+  </g>
+</svg>
