@@ -13,7 +13,7 @@ export default async function Home() {
           <WaveMark className="h-9 w-9 text-current-300" />
         </div>
         <h1 className="text-4xl font-semibold tracking-tight text-foam-100">
-          Freedive
+          Respiro
         </h1>
         <p className="mt-3 text-balance text-foam-200/80">
           Log sessions, track your PBs, and run CO2/O2 tables with audio cues —

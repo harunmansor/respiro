@@ -5,7 +5,7 @@ import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
-const COOKIE_NAME = "freedive_session";
+const COOKIE_NAME = "respiro_session";
 const SESSION_DAYS = 30;
 
 function cookieIsSecure(): boolean {

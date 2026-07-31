@@ -1,4 +1,4 @@
-# Freedive — Training Log & Table Runner
+# Respiro — Freedive Training Log & Table Runner
 
 A self-hostable, mobile-first **PWA** for freedivers to log training sessions, track
 personal bests, and run CO2/O2 breath-hold tables with audio cues. Built because the

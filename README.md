@@ -1,8 +1,8 @@
-# Freedive
+# Respiro
 
 A self-hosted, mobile-first training log and breath-hold table runner for freedivers.
 
-Freedive combines session logging, personal-best tracking, progression charts, and configurable CO₂ training tables in an installable Progressive Web App. It is designed for individual divers and small groups who want to own their training data.
+Respiro combines session logging, personal-best tracking, progression charts, and configurable CO₂ training tables in an installable Progressive Web App. Its name is Italian for "breath". It is designed for individual divers and small groups who want to own their training data.
 
 > [!WARNING]
 > Breath-hold training can cause loss of consciousness. Never practise apnea in water alone. Use appropriate supervision and follow guidance from a qualified freediving instructor.
@@ -68,8 +68,8 @@ Freedive combines session logging, personal-best tracking, progression charts, a
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/harunmansor/freedive.git
-cd freedive
+git clone https://github.com/harunmansor/respiro.git
+cd respiro
 ```
 
 ### 2. Configure the environment
@@ -216,7 +216,7 @@ Current limitations:
 
 ## Current scope
 
-Freedive is focused on personal training. It does not currently include social feeds, coaching accounts, club management, public profiles, or native mobile applications.
+Respiro is focused on personal training. It does not currently include social feeds, coaching accounts, club management, public profiles, or native mobile applications.
 
 ## Contributing
 

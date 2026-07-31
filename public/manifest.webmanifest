@@ -1,6 +1,6 @@
 {
-  "name": "Freedive — Training Log & Tables",
-  "short_name": "Freedive",
+  "name": "Respiro — Freedive Training",
+  "short_name": "Respiro",
   "description": "Log freediving sessions, track personal bests, and run CO2 tables with audio cues.",
   "start_url": "/dashboard",
   "scope": "/",

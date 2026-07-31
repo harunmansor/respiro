@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Freedive is currently maintained from the `main` branch. Security fixes are applied to the latest revision only; older commits and independently modified deployments are not supported.
+Respiro is currently maintained from the `main` branch. Security fixes are applied to the latest revision only; older commits and independently modified deployments are not supported.
 
 | Version | Supported |
 |---|---|
@@ -15,7 +15,7 @@ Please do not open a public issue for a suspected vulnerability.
 
 Use GitHub's private reporting form:
 
-<https://github.com/harunmansor/freedive/security/advisories/new>
+<https://github.com/harunmansor/respiro/security/advisories/new>
 
 Include, where possible:
 
